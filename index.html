@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <title>JZSlider Instructions</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="JZSlider/JZSlider.js"></script>
+    <link rel="stylesheet" href="JZSlider/JZSlider.css">
+    <style type="text/css">
+        body {
+            margin: 0 auto;
+            padding: 0 0 150px;
+            border: none;
+            max-width: 960px;
+            font-family: Consolas, "Courier New", monospace;
+        }
+        .codebox{
+            border: 1px solid #ccc;
+            background-color: #dff0d8;
+            margin-bottom: 30px;
+            padding: 15px;
+        }
+        .gray{
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h1>JZSlider ver. 0.902.03</h1>
+    <h2>Instructions:</h2>
+    <h3>Step 1</h3>
+    <p>
+        <a href="JZSlider.zip">Download</a> the plugin, unzip it, copy files and include JZSlider&copy; script and stylesheet in your document (you will need to make sure the css and js files are on your server, and adjust the paths in the script and link tag). Make sure you also load the <a href="https://jquery.com/" target="_blank">jQuery</a> library.
+    </p>
+    <div class="codebox">
+        <span class="gray">&lt;!-- Add jQuery library --></span><br>
+        &lt;script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"&gt;&lt;/script&gt;<br><br>
+        <span class="gray">&lt;!-- Add JZSlider&copy; --></span><br>
+        &lt;script type="text/javascript" src="/JZSlider/JZSlider.js"&gt;&lt;/script&gt;<br>
+        &lt;link rel="stylesheet" href="/JZSlider/JZSlider.css" type="text/css"&gt;
+
+    </div>
+    <h3>Step 2</h3>
+    <p>
+        Attach JZSlider&copy; when the document is loaded.
+    </p>
+    <div class="codebox">
+        &lt;div class="jzslider"&gt;<br>
+        &ensp;&ensp;&ensp;&ensp;&lt;a class="slide" href="#"&gt;<br>
+        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&lt;img src="slide1.jpg"&gt;<br>
+        &ensp;&ensp;&ensp;&ensp;&lt;/a&gt;<br>
+        &ensp;&ensp;&ensp;&ensp;&lt;a class="slide" href="#"&gt;<br>
+        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&lt;img src="slide2.jpg"&gt;<br>
+        &ensp;&ensp;&ensp;&ensp;&lt;/a&gt;<br>
+        &ensp;&ensp;&ensp;&ensp;&lt;a class="slide" href="#"&gt;<br>
+        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&lt;img src="slide2.jpg"&gt;<br>
+        &ensp;&ensp;&ensp;&ensp;&lt;/a&gt;<br>
+        &lt;/div&gt;<br><br>
+        &lt;script type="text/javascript"&gt;<br>
+        &ensp;&ensp;&ensp;&ensp;$(function () {<br>
+        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;$('.jzslider').JZslider();<br>
+        &ensp;&ensp;&ensp;&ensp;});<br>
+        &lt;/script&gt;<br>
+    </div>
+    <h3>Options</h3>
+    <div class="codebox">
+        <span class="gray">// Default values</span><br>
+        slide_speed: 500, <span class="gray">// String, sliding speed.</span><br>
+        stay_time: 5000, <span class="gray">// String, execute interval.</span><br>
+        autoslide: true, <span class="gray">// Boolean, auto play.</span><br>
+        dire_ctr: false, <span class="gray">// Boolean, move to the next or the previous slide.</span><br>
+        dot_ctr: false, <span class="gray">// Boolean, dot controller.</span><br>
+        cycling: true, <span class="gray">// Boolean, stop at the last slide when set to false.</span><br>
+        mouseover_pause: true, <span class="gray">// Boolean, pause on mouse over.</span><br>
+        debug: false <span class="gray">// Boolean, debug mode.</span><br>
+    </div>
+</div>
+
+
+<div class="jzslider">
+    <a class="slide" href="javascript:;">
+        <img src="slide1.jpg" alt="slide1">
+    </a>
+    <a class="slide" href="javascript:;">
+        <img src="slide2.jpg" alt="slide2">
+    </a>
+    <a class="slide" href="javascript:;">
+        <img src="slide3.jpg" alt="slide3">
+    </a>
+    <a class="slide" href="javascript:;">
+        <img src="slide4.jpg" alt="slide4">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('.jzslider').JZSlider({
+            dot_ctr:true,
+            dire_ctr:false,
+            cycling:true,
+            debug:true
+        });
+    });
+</script>
+</body>
+</html>
