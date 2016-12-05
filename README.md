@@ -1,4 +1,4 @@
 # JZlider
 a simple slideshow plugin
 
-instruction: <a href="https:jinntser.github.io/JZlider">
+instruction: <a href="https:jinntser.github.io/JZlider">here</a>
