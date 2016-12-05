@@ -1,2 +1,2 @@
-# jZlider
+# JZlider
 a simple slideshow plugin
