@@ -323,7 +323,7 @@
     }
 
     $.fn.extend({
-        JZSlider: function (opt) {
+        JZlider: function (opt) {
             return this.each(function () {
                 slide_ini($(this), opt);
             });
