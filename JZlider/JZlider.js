@@ -1,7 +1,8 @@
-/**
- * Created by JZ on 2015/11/23.
- * JZSlider ver. 0.902.04
- */
+/*************************************
+ ***  Created by JZ on 2015/11/23  ***
+ ***  JZlider ver.0.9.12.29        ***
+ ************************************/
+
 (function ($) {
     function slide_ini(target, opt) {
         var slide_num = target.find('.slide').length,
@@ -9,53 +10,50 @@
             position_left_s = '100%',
             position_left_e = '-100%',
             _isDot = false,
-            target_id = 'jzslider_' + Math.floor(new Date()),
+            target_id = 'JZlider' + Math.floor(new Date()) + Math.floor(Math.random() * 10000),
             slide_start, dire;
         //Default values
         var settings = {
-            slide_speed: 500,//滑動速度
-            stay_time: 5000,//執行間隔
-            autoslide: true,//自動播放
-            dire_ctr: false,//左右控制開關
-            dot_ctr: false,//圓點控制開關
+            speed: 500,//滑動速度
+            stayTime: 5000,//執行間隔
+            autoPlay: true,//自動播放
+            direCtr: false,//左右控制開關
+            bullet: false,//圓點控制開關
             cycling: true,//循環or停在最後一張
-            mouseover_pause: true,//mouseover暫停
+            hoverPause: true,//mouseover暫停
             debug: false//debug mode
         };
         $.extend(settings, opt);
         //initialize
-        target.find('.slide').wrapAll('<div class="slide_sec"><div class="slidewrap"></div></div>');
+        target.addClass('JZlider').find('.slide').wrapAll('<div class="slide-box"><div class="slide-wrap" id="' + target_id + '"></div></div>');
         target.find('.slide').eq(0).siblings('.slide').css({display: 'none', position: 'absolute'});
-        target.addClass('slidebox');
-        target.find('.slidewrap').attr('id', target_id);
+        //##### debug #####
         if (settings.debug == true) {
-            if ($('#jsliderdebug').index() < 0) {
-                $('body').append('<div id="jsliderdebug">debug mode: on</div>')
+            console.log('JZlider debug mode:');
+        }
+        if (settings.bullet == true) {
+            target.append('<div class="bullet-wrap"></div>');
+            for (var k = 0; k < slide_num; k++) {
+                target.find('.bullet-wrap').append('<div class="bullet"></div>');
             }
+            target.find('.bullet').bind('click', slide_choose);
+            target.find('.bullet').eq(slide_next).addClass('active');
         }
-        if (settings.dot_ctr == true) {
-            target.append('<div class="slide_btn_wrap"></div>');
-            for (k = 0; k < slide_num; k++) {
-                target.find('.slide_btn_wrap').append('<div class="slide_btn"></div>');
-            }
-            target.find('.slide_btn').bind('click', slide_choose);
-            target.find('.slide_btn').eq(slide_next).addClass('btn_active');
+        if (settings.direCtr == true) {
+            target.find('.slide-box').append('<div class="JZlider-control left"></div><div class="JZlider-control right"></div>');
+            target.find('.JZlider-control').bind('click', slide_change_dire);
         }
-        if (settings.dire_ctr == true) {
-            target.find('.slide_sec').append('<div class="slide_btn_side slide_btn_left"></div><div class="slide_btn_side slide_btn_right"></div>');
-            target.find('.slide_btn_side').bind('click', slide_change_dire);
-        }
-        if (settings.autoslide == true) {
+        if (settings.autoPlay == true) {
             if (slide_num > 1) {
                 auto_slide();
-                if (settings.mouseover_pause == true) {
+                if (settings.hoverPause == true) {
+                    //##### debug #####
                     if (settings.debug == true) {
-                        document.getElementById('jsliderdebug').innerHTML = 'mouseover_pause on';
+                        console.log('hoverPause on');
                     }
-                    target.find('.slide').bind('mouseenter', function () {
-                        clearTimeout(slide_start)
-                    });
-                    target.find('.slide').bind('mouseleave', function () {
+                    target.find('.slide').hover(function () {
+                        clearTimeout(slide_start);
+                    }, function () {
                         auto_slide();
                     });
                 }
@@ -74,10 +72,11 @@
                         }
                         _isDot = true;
                         slide_move();
-                        $(this).eq(slide_next).addClass('btn_active').siblings().removeClass('btn_active');
+                        $(this).eq(slide_next).addClass('active').siblings().removeClass('active');
                     }
+                    //##### debug #####
                     if (settings.debug == true) {
-                        document.getElementById('jsliderdebug').innerHTML = 'slide_now = ' + slide_now + '\nslide_next = ' + slide_next
+                        console.log('slide_now = ' + slide_now + '\nslide_next = ' + slide_next);
                     }
                 }
             }
@@ -88,7 +87,7 @@
             if (slide_num > 1) {
                 if (!target.find('.slide').is(':animated')) {
                     var $this = $(this);
-                    var selec_dire = ($this.attr('class').indexOf('slide_btn_left') > 0) ? 0 : 1;
+                    var selec_dire = ($this.attr('class').indexOf('left') > 0) ? 0 : 1;
                     if (selec_dire == 1) {
                         if (slide_next == slide_num - 1) {
                             if (settings.cycling == true) {
@@ -100,8 +99,9 @@
                             slide_next++;
                         }
                         dire = 'right';
+                        //##### debug #####
                         if (settings.debug == true) {
-                            document.getElementById('jsliderdebug').innerHTML = 'slide_now = ' + slide_now + '\nslide_next = ' + slide_next + '\ndire = ' + dire
+                            console.log('slide_now = ' + slide_now + '\nslide_next = ' + slide_next + '\ndire = ' + dire);
                         }
                     } else if (selec_dire == 0) {
                         if (slide_next == 0) {
@@ -114,8 +114,9 @@
                             slide_next--;
                         }
                         dire = 'left';
+                        //##### debug #####
                         if (settings.debug == true) {
-                            document.getElementById('jsliderdebug').innerHTML = 'slide_now = ' + slide_now + '\nslide_next = ' + slide_next + '\ndire = ' + dire
+                            console.log('slide_now = ' + slide_now + '\nslide_next = ' + slide_next + '\ndire = ' + dire);
                         }
                     }
                     slide_move();
@@ -140,7 +141,7 @@
                         slide_move();
                     }
                 }
-            }, settings.stay_time)
+            }, settings.stayTime);
         }
 
         //位置控制
@@ -157,28 +158,32 @@
         //移動
         function slide_move() {
             position_ctr();
-            target.find('.slide').eq(slide_next).css({top: 0, left: position_left_s, display: 'block'}).animate({left: '0'}, settings.slide_speed);
-            target.find('.slide').eq(slide_now).animate({left: position_left_e}, settings.slide_speed, function () {
+            target.find('.slide').eq(slide_next).css({
+                top: 0,
+                left: position_left_s,
+                display: 'block'
+            }).animate({left: '0'}, settings.speed);
+            target.find('.slide').eq(slide_now).animate({left: position_left_e}, settings.speed, function () {
                 target.find('.slide').eq(slide_now).css({display: 'none', position: 'absolute'});
                 target.find('.slide').eq(slide_next).css({position: 'relative'});
                 slide_now = slide_next;
+                //##### debug #####
                 if (settings.debug == true) {
-                    $('#jsliderdebug').html('slide_now = ' + slide_now + '\nslide_next = ' + slide_next);
-                    //$('#jsliderdebug').html('t_prev = ' + t_prev + ',\nt_now = ' + t_now + ',\nt_next = ' + t_next)
+                    console.log('slide_now = ' + slide_now + '\nslide_next = ' + slide_next);
                 }
             });
 
-            if (settings.dot_ctr == true) {
-                target.find('.slide_btn').eq(slide_next).addClass('btn_active').siblings().removeClass('btn_active');
+            if (settings.bullet == true) {
+                target.find('.bullet').eq(slide_next).addClass('active').siblings().removeClass('active');
             }
-            if (settings.autoslide == true) {
+            if (settings.autoPlay == true) {
                 clearTimeout(slide_start);
                 auto_slide();
             }
             _isDot = false;
+            //##### debug #####
             if (settings.debug == true) {
-                $('#jsliderdebug').html('slide_now = ' + slide_now + '\nslide_next = ' + slide_next);
-                //$('#jsliderdebug').html('t_prev = ' + t_prev + ',\nt_now = ' + t_now + ',\nt_next = ' + t_next)
+                console.log('slide_now = ' + slide_now + '\nslide_next = ' + slide_next);
             }
         }
 
@@ -210,17 +215,19 @@
                 t_now = slide_now;
                 touchStart = true;
             }
-            if (settings.autoslide == true) {
-                if(slide_start){
+            if (settings.autoPlay == true) {
+                if (slide_start) {
                     clearTimeout(slide_start);
                 }
             }
+            //##### debug #####
             if (settings.debug == true) {
-                console.log('start');
+                console.log('drag start');
             }
         }
 
         function sc_m(e) {
+            //防止手機下滑重整頁面
             e.preventDefault();
             if (touchStart == true) {
                 t_e = parseInt(Math.floor(100 * (e.touches[0].pageX - t_o) / device_width));
@@ -249,14 +256,13 @@
                 }
                 touch_move(t_e);
             }
+            //##### debug #####
             if (settings.debug == true) {
-                $('#jsliderdebug').html(t_e);
-                //$('#jsliderdebug').html('t_e = ' + t_e + '\nt_now = ' + t_now + '\nt_next = ' + t_next);
+                console.log(t_e);
             }
         }
 
         function sc_e(e) {
-            // e.preventDefault();
             if (touchStart == true) {
                 if (t_e >= 20) {//左邊進來
                     dire = 'left';
@@ -292,11 +298,11 @@
             var end_pos = (dire == 'left') ? 100 : -100;
             freeze = true;
             remove_touchEvent();
-            target.find('.slide').eq(t_next).animate({left: (end_pos + '%')}, settings.slide_speed * 0.5);
-            target.find('.slide').eq(t_now).animate({left: 0}, settings.slide_speed * 0.5, function () {
+            target.find('.slide').eq(t_next).animate({left: (end_pos + '%')}, settings.speed * 0.5);
+            target.find('.slide').eq(t_now).animate({left: 0}, settings.speed * 0.5, function () {
                 target.find('.slide').eq(t_now).siblings('.slide').css({display: 'none', position: 'absolute'});
                 add_touchEvent();
-                if (settings.autoslide == true) {
+                if (settings.autoPlay == true) {
                     auto_slide();
                 }
                 freeze = false;
@@ -309,16 +315,19 @@
             remove_touchEvent();
             slide_next = t_next;
             slide_now = slide_next;
-            target.find('.slide_btn').eq(t_next).addClass('btn_active').siblings().removeClass('btn_active');
-            target.find('.slide').eq(t_next).animate({left: 0}, settings.slide_speed * 0.5, function () {
-                target.find('.slide').eq(t_next).css('position', 'relative').siblings('.slide').css({display: 'none', position: 'absolute'});
+            target.find('.bullet').eq(t_next).addClass('active').siblings().removeClass('active');
+            target.find('.slide').eq(t_next).animate({left: 0}, settings.speed * 0.5, function () {
+                target.find('.slide').eq(t_next).css('position', 'relative').siblings('.slide').css({
+                    display: 'none',
+                    position: 'absolute'
+                });
                 add_touchEvent();
-                if (settings.autoslide == true) {
+                if (settings.autoPlay == true) {
                     auto_slide();
                 }
                 freeze = false;
             });
-            target.find('.slide').eq(t_now).animate({left: (end_pos + '%')}, settings.slide_speed * 0.5);
+            target.find('.slide').eq(t_now).animate({left: (end_pos + '%')}, settings.speed * 0.5);
         }
     }
 

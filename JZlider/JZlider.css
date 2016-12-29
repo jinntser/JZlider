@@ -1,17 +1,17 @@
-.slidebox {
+.JZlider {
     position: relative;
     display: block;
     width: 100%;
 }
 
-.slide_sec {
+.slide-box {
     position: relative;
     width: 100%;
     display: block;
     overflow: hidden;
 }
 
-.slidewrap {
+.slide-wrap {
     position: relative;
     clear: both;
     float: none;
@@ -27,17 +27,13 @@
     display: block;
 }
 
-.slide img{
-    display: block;
-}
-
 .slide img {
     width: 100%;
     height: auto;
     display: block;
 }
 
-.slide_btn_wrap {
+.bullet-wrap {
     display: block;
     position: relative;
     margin: 2% auto;
@@ -45,7 +41,7 @@
     width: 100%;
 }
 
-.slide_btn {
+.bullet {
     border: 5px solid;
     border-color: #bbb;
     border-radius: 5px;
@@ -54,11 +50,11 @@
     display: inline-block;
 }
 
-.btn_active {
+.bullet.active {
     border-color: #3bcfff;
 }
 
-.slide_btn_side {
+.JZlider-control {
     position: absolute;
     top: 50%;
     margin-top: -22px;
@@ -70,20 +66,12 @@
     text-align: center;
 }
 
-.slide_btn_left {
-    left: 0px;
+.JZlider-control.left {
+    left: 0;
     background: url("arrow-l.jpg");
 }
 
-.slide_btn_right {
-    right: 0px;
+.JZlider-control.right {
+    right: 0;
     background: url("arrow-r.jpg");
-}
-
-#jsliderdebug {
-    position: fixed;
-    top: 50px;
-    left: 50px;
-    z-index: 9999;
-    color: red;
 }
