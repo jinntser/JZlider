@@ -3,6 +3,7 @@
  ***  JZlider ver.0.9.12.29        ***
  ************************************/
 
+
 (function ($) {
     function slide_ini(target, opt) {
         var slide_num = target.find('.slide').length,
@@ -157,6 +158,7 @@
 
         //移動
         function slide_move() {
+            remove_touchEvent();
             position_ctr();
             target.find('.slide').eq(slide_next).css({
                 top: 0,
@@ -167,6 +169,7 @@
                 target.find('.slide').eq(slide_now).css({display: 'none', position: 'absolute'});
                 target.find('.slide').eq(slide_next).css({position: 'relative'});
                 slide_now = slide_next;
+                add_touchEvent();
                 //##### debug #####
                 if (settings.debug == true) {
                     console.log('slide_now = ' + slide_now + '\nslide_next = ' + slide_next);
