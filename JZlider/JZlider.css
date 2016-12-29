@@ -1,6 +1,5 @@
 .JZlider {
     position: relative;
-    display: block;
     width: 100%;
 }
 
@@ -64,14 +63,15 @@
     line-height: 44px;
     cursor: pointer;
     text-align: center;
+    background-repeat: no-repeat;
 }
 
 .JZlider-control.left {
     left: 0;
-    background: url("arrow-l.jpg");
+    background-image: url("arrow-l.jpg");
 }
 
 .JZlider-control.right {
     right: 0;
-    background: url("arrow-r.jpg");
+    background-image: url("arrow-r.jpg");
 }

@@ -25,7 +25,7 @@
         };
         $.extend(settings, opt);
         //initialize
-        target.addClass('JZlider').find('.slide').wrapAll('<div class="slide-box"><div class="slide-wrap" id="' + target_id + '"></div></div>');
+        target.addClass('JZlider').find('.slide').wrapAll('<div class="slide-box" id="' + target_id + '"><div class="slide-wrap"></div></div>');
         target.find('.slide').eq(0).siblings('.slide').css({display: 'none', position: 'absolute'});
         //##### debug #####
         if (settings.debug == true) {
